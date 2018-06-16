@@ -64,12 +64,9 @@ void keyboard(unsigned char key, int x, int y)
 	case '+': if (cameraVelocityINT > 1) cameraVelocityINT--; break;
 	case '-': if (cameraVelocityINT < 5) cameraVelocityINT++; break;
 
-	case 'm': if (isManual == false) isManual = true;
-			  else if (isManual == true) isManual = false; break;
+	case 'm': isManual == false ? isManual = true : isManual = false; break;
 
-	case 'p': if (isPaused == false) isPaused = true;
-			  else if (isPaused == true) isPaused = false; break;
-
+	case 'p': isPaused == false ? isPaused = true : isPaused = false; break;
 	}
 }
 
@@ -324,7 +321,7 @@ void renderScene()
 
 	cameraAngle = atan2f(cameraDir.z, cameraDir.x); // obrot kamery w celu widoku z boku karasia
 
-													//// 0 / 1000, -0.25,0 karaœ pospolity                                                                    //// 
+													//// 0 / 1000, -0.25,0 karaÂœ pospolity                                                                    //// 
 	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f + glm::vec3(1000, -0.25f, 0)) * glm::rotate(-cameraAngle + glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.2f));
 
 	drawObjectTextureSpecular(&fishModel, shipModelMatrix, texFish);
