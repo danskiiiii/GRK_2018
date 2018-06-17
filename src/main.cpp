@@ -67,6 +67,7 @@ void keyboard(unsigned char key, int x, int y)
 	case 'm': isManual == false ? isManual = true : isManual = false; break;
 
 	case 'p': isPaused == false ? isPaused = true : isPaused = false; break;
+
 	}
 }
 
@@ -319,12 +320,11 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.49, 0.69, 0.76, 1.0f);
 
-	cameraAngle = atan2f(cameraDir.z, cameraDir.x); // obrot kamery w celu widoku z boku karasia
+	cameraAngle = atan2f(cameraDir.z, cameraDir.x); // obrot  
+													                                                                 
+	// glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f + glm::vec3(0, -0.25f, 0)) * glm::rotate(-cameraAngle + glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.2f));
+	// drawObjectTextureSpecular(&fishModel, shipModelMatrix, texFish); 
 
-													//// 0 / 1000, -0.25,0 kara pospolity                                                                    //// 
-	glm::mat4 shipModelMatrix = glm::translate(cameraPos + cameraDir * 0.5f + glm::vec3(1000, -0.25f, 0)) * glm::rotate(-cameraAngle + glm::radians(90.0f), glm::vec3(0, 1, 0)) * glm::scale(glm::vec3(0.2f));
-
-	drawObjectTextureSpecular(&fishModel, shipModelMatrix, texFish);
 	drawObjectFadedStripes(&sand, glm::translate(glm::vec3(49, -19, -30)) * glm::scale(glm::vec3(10.2f)), glm::vec3(0.91, 0.91, 0.85), glm::vec3(0.91, 0.85, 0.56), 2);
 	drawObjectFadedStripes(&ruins, glm::translate(glm::vec3(-50, -16, -65)) * glm::scale(glm::vec3(.15f)), glm::vec3(0.79, 0.79, 0.77), glm::vec3(0.93, 0.93, 0.91), 40);
 	drawObjectColor(&reef, glm::translate(glm::vec3(3, -14.5, -10)) * glm::scale(glm::vec3(.8f)), glm::vec3(0.44, 0.56, 0.27));
@@ -351,10 +351,10 @@ void renderScene()
 		}
 
 		if (bbb % 6 == 1) {
-			for (float j = 2.0; j < 6; j += 0.3) { //do popr
+			for (float j = 2.0; j < 6; j += 0.3) { 
 				drawObjectSharpStripes(&f5, glm::translate(fishStartPositions[i] - glm::vec3(j, j*1.5, j += 0.2))*createFishMovementMatrix(fishMovementPoints, j*.7) * glm::scale(glm::vec3(0.13f)), glm::vec3(0.32, 0.75, 0.12), glm::vec3(0.75, 0.24, 0.12), .5);
 			}
-			for (float j = 1.5; j < 4; j += 0.6) { //VORONOI / Worley noise / Fractional Brownian motion 
+			for (float j = 1.5; j < 4; j += 0.6) { //VORONOI  
 				drawObjectVoro(&f4, glm::translate(fishStartPositions[i] - glm::vec3(2.1, j, 0))*createFishMovementMatrix(fishMovementPoints, .8*j) * glm::scale(glm::vec3(0.15f)), glm::vec3(j / 5, 0.5, 0.2));
 			}
 			for (float j = 1.5, k = 8; j < 5; j += 0.6, k -= .8) {
@@ -451,7 +451,7 @@ void init()
 	for (int i = 0; i < NUM_CAMERA_POINTS; i++)
 	{
 		float angle = (float(i))*(2 * glm::pi<float>() / NUM_CAMERA_POINTS);
-		float radius = camRadius *(0.95 + glm::linearRand(0.0f, 0.15f));
+		float radius = camRadius * (0.95 + glm::linearRand(0.0f, 0.15f));
 		cameraKeyPoints[i] = glm::vec3(cosf(angle) + camOffset, 0.0f, sinf(angle)) * radius;
 	}
 
@@ -484,7 +484,6 @@ void shutdown()
 	shaderLoader.DeleteProgram(programTextureSpecular);
 	shaderLoader.DeleteProgram(programVoro);
 	shaderLoader.DeleteProgram(programSharpStripes);
-
 }
 
 void idle()
@@ -499,6 +498,7 @@ int main(int argc, char ** argv)
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(1920, 1080);
 	glutCreateWindow("OpenGL Projekt GRK");
+
 	glutFullScreen();
 
 	glewInit();
